@@ -27,6 +27,10 @@ RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
     yum clean all -y && \
     mkdir -p /opt/openshift
 
+# Add CA-Trusts to System-Trust-Store
+COPY ca-trust/*.crt /etc/pki/ca-trust/source/anchors/
+RUN update-ca-trust
+
 # Install Maven 3.5.2
 ENV MAVEN_VERSION 3.5.2
 RUN (curl -fSL https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | \
