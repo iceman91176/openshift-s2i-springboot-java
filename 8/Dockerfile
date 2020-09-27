@@ -32,7 +32,7 @@ COPY ./ca-trust/*.crt /etc/pki/ca-trust/source/anchors/
 RUN update-ca-trust
 
 # Install Maven 3.6.1
-ENV MAVEN_VERSION 3.6.1
+ENV MAVEN_VERSION 3.6.3
 RUN (curl -fSL https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | \
     tar -zx -C /usr/local) && \
     mv /usr/local/apache-maven-$MAVEN_VERSION /usr/local/maven && \
