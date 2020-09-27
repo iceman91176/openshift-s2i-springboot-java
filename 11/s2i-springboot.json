@@ -111,7 +111,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-	      "name": "springboot-java:latest"
+	      "name": "springboot-java:jdk11"
             },
 	    "env": [
 		{
