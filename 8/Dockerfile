@@ -28,7 +28,7 @@ RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
     mkdir -p /opt/openshift
 
 # Add CA-Trusts to System-Trust-Store
-COPY ../ca-trust/*.crt /etc/pki/ca-trust/source/anchors/
+COPY ./ca-trust/*.crt /etc/pki/ca-trust/source/anchors/
 RUN update-ca-trust
 
 # Install Maven 3.6.1
