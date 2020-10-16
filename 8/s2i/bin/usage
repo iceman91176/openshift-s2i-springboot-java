@@ -1,3 +1,4 @@
+#!/bin/bash -e
 cat <<EOF
 This is the springboot-java S2I image:
 To use it, install S2I: https://github.com/openshift/source-to-image
