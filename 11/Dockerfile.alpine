@@ -17,7 +17,7 @@ LABEL io.k8s.description="Platform for building Spring Boot applications with ma
       io.s2i.scripts-url="image:///usr/libexec/s2i"
 
 # Install required util packages.
-RUN apk update && apk add ca-certificates tar unzip sudo curl bash git && rm -rf /var/cache/apk/* 
+RUN apk update && apk add ca-certificates java-cacerts tar unzip sudo curl bash git && rm -rf /var/cache/apk/* 
 
 # Create required directories.
 RUN mkdir -p /opt/openshift && mkdir -p /opt/app-root/src
@@ -53,8 +53,11 @@ RUN chown -R 1001:1001 /opt/openshift /opt/app-root/src
 RUN chmod -R 777 /opt/openshift /opt/app-root/src
 
 # Add CA-Trusts to System-Trust-Store
-COPY ./ca-trust/*.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+COPY ./ca-trust/* /usr/local/share/ca-certificates/
+RUN update-ca-certificates && \
+    cp -f /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert.pem && \
+    rm $JAVA_HOME/lib/security/cacerts && \
+    ln -s /etc/ssl/certs/java/cacerts $JAVA_HOME/lib/security/cacerts
 
 # Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
 # sets io.openshift.s2i.scripts-url label that way.
